@@ -1,80 +1,46 @@
+// objeto do usuário
+const usuario = { nome: "Raphael", matricula: "123456", pendencia: false, acessibilidade: true };
 
-class AulasComponent extends HTMLElement 
-{
-    
-    constructor() 
-    {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.hoje = "ter";
-    }
+// lista objetos de armários
+const armarios = [
+  { id: 1, formato: "padrao", status: true, acessivel: false },
+  { id: 2, formato: "padrao", status: true, acessivel: false },
+  { id: 3, formato: "padrao", status: true, acessivel: false },
+  { id: 4, formato: "padrao", status: false, acessivel: true },
+  { id: 5, formato: "padrao", status: false, acessivel: true },
+  { id: 6, formato: "duplo", status: true, acessivel: true },
+  { id: 7, formato: "duplo", status: false, acessivel: true },
+  { id: 8, formato: "duplo", status: false, acessivel: true },  
+];
 
-    connectedCallback() 
-    {
-      this.loadData();
-    }
+// função para reserva do armário, incluindo as regras.
+function reservarArmario() {
   
-    async loadData() 
-    {
-      try 
-      {
-        const response = await fetch('aulas.json');
-        const aulas = await response.json();
-        this.render(aulas);
-      }
-      catch (error) 
-      {
-        console.error('Erro ao carregar os dados das aulas:', error);
-      }
-    }
-
-    render(aulas)
-    {
-      const aulasDia = aulas.filter(a => a.data === this.hoje);
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'styles_componente.css'; 
-      this.shadowRoot.appendChild(link);
-      this.shadowRoot.innerHTML += `
-        <div>
-          ${aulasDia.map(a => 
-            {
-           
-            let provaDisplay = a.prova_alert ? '' : 'display: none;';
-            
-            let notaColor = ''; 
-            const notaValue = parseFloat(a.nota);
-
-            if (notaValue < 6) 
-            {
-              notaColor = 'red';      
-            } 
-            else if (notaValue >= 6 && notaValue < 8) 
-            {
-              notaColor = 'orange';  
-            }
-            else 
-            {
-               notaColor = 'green';    
-            }
-
-            return `
-              <div class="comp-aula">
-                <div class="lable-prova p_lable" style="${provaDisplay}">PROVA: <b>${a.prova}</b></div>
-                <div class="titulo_aula">${a.disciplina}</div>
-                <p class="p">Local e Horário: <b>${a.local} - ${a.horario}</b></p>
-                <div class="lables">
-                  <div class="lable-frequencia p_lable">FALTAS: <b>${a.frequencia}</b></div>
-                  
-                  <div class="lable-nota p_lable" style="background-color: ${notaColor};">CR: <b>${a.nota}</b></div>
-                </div>
-              </div>
-            `;
-          }
-        ).join('')
-      } 
-        </div>
-      `;
-    }
+  // obter tipo de armário selecionado pelo usuário no html.
+  let tipoSelecionado = document.getElementById("tipoArmario").value;
+  
+  // na lista, filtrar apenas os armários que estão disponíveis e que são acessiveis ao usuário.
+  let armariosDisponiveis = armarios.filter(a => a.formato === tipoSelecionado && a.status === true && usuario.acessibilidade === a.acessivel);
+  
+  // caso não exista armário disponível, retorna para o usuário mensagem.
+  if (armariosDisponiveis.length === 0) {
+    document.getElementById("resultado").innerText = `Olá, ${usuario.nome}! Nenhum armário disponível para o tipo selecionado.`;
+    return;
   }
-  customElements.define('aulas-component', AulasComponent);
+  
+  // Caso exista armário(s) disponíveil, seguimos sorteando uma opção. 
+  let armarioSorteado = armariosDisponiveis[Math.floor(Math.random() * armariosDisponiveis.length)];
+  
+  // Depois localizamos o armário emprestado na lista de armarios e mudamos o status do armário.
+  let armarioEmprestado = armarios.find(armario => armario.id === armarioSorteado.id).status = false;
+  
+  // Finalmente, mudamos a pendencia do usuário para verdadeira.
+  usuario.pendencia = true;
+  
+  // Impmimimos uma mensagem de reserva para o usuário.
+  document.getElementById("resultado").innerText = `Olá, ${usuario.nome}! O armário ${armarioSorteado.id} foi reservado com sucesso!`;
+
+  console.log(usuario);
+  console.log(armarios);
+
+}
