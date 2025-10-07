@@ -1,36 +1,63 @@
-class AulasComponent extends HTMLElement {
-    constructor() {
+
+class AulasComponent extends HTMLElement 
+{
+    
+    constructor() 
+    {
       super();
       this.attachShadow({ mode: 'open' });
       this.hoje = "ter";
     }
-  
-    connectedCallback() {
+
+    connectedCallback() 
+    {
       this.loadData();
     }
   
-    async loadData() {
-      try {
+    async loadData() 
+    {
+      try 
+      {
         const response = await fetch('aulas.json');
         const aulas = await response.json();
         this.render(aulas);
-      } catch (error) {
+      }
+      catch (error) 
+      {
         console.error('Erro ao carregar os dados das aulas:', error);
       }
     }
-  
-    render(aulas) {
+
+    render(aulas)
+    {
       const aulasDia = aulas.filter(a => a.data === this.hoje);
-  
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = 'styles_componente.css'; 
-      this.shadowRoot.appendChild(link); 
-  
+      this.shadowRoot.appendChild(link);
       this.shadowRoot.innerHTML += `
         <div>
-          ${aulasDia.map(a => {
+          ${aulasDia.map(a => 
+            {
+           
             let provaDisplay = a.prova_alert ? '' : 'display: none;';
+            
+            let notaColor = ''; 
+            const notaValue = parseFloat(a.nota);
+
+            if (notaValue < 6) 
+            {
+              notaColor = 'red';      
+            } 
+            else if (notaValue >= 6 && notaValue < 8) 
+            {
+              notaColor = 'orange';  
+            }
+            else 
+            {
+               notaColor = 'green';    
+            }
+
             return `
               <div class="comp-aula">
                 <div class="lable-prova p_lable" style="${provaDisplay}">PROVA: <b>${a.prova}</b></div>
@@ -38,14 +65,16 @@ class AulasComponent extends HTMLElement {
                 <p class="p">Local e Horário: <b>${a.local} - ${a.horario}</b></p>
                 <div class="lables">
                   <div class="lable-frequencia p_lable">FALTAS: <b>${a.frequencia}</b></div>
-                  <div class="lable-nota p_lable">CR: <b>${a.nota}</b></div>
+                  
+                  <div class="lable-nota p_lable" style="background-color: ${notaColor};">CR: <b>${a.nota}</b></div>
                 </div>
               </div>
             `;
-          }).join('')}
+          }
+        ).join('')
+      } 
         </div>
       `;
     }
   }
-  
-  customElements.define('aulas-component', AulasComponent);  
+  customElements.define('aulas-component', AulasComponent);

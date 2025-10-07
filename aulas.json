@@ -10,6 +10,7 @@
       "frequencia": "10/25",
       "nota": "9"
     },
+
     {
       "id": 2,
       "disciplina": "E01 - Circuitos Elétricos em Corrente Contínua",
@@ -21,6 +22,7 @@
       "frequencia": "10/25",
       "nota": "5"
     },
+    
     {
       "id": 3,
       "disciplina": "M02 - Álgebra e Geometria Analítica",
@@ -32,5 +34,4 @@
       "frequencia": "10/25",
       "nota": "7"
     }
-  ]
-  
+]
