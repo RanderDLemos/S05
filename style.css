@@ -1,68 +1,56 @@
-:root 
-{
-  --frequencia: #126ae2;
-  --nota: #126ae2;
-  --prova: #d9534f; 
+body {
+  margin: 0px;
 }
 
-body 
-{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 20px;
+header {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  rigth: 0px;
+  background-color: red;
+  padding: 30px;
+  display: block;
 }
 
-.comp-aula 
-{
-    border: 1px solid #ccc;      
-    padding: 15px;                  
-    margin-bottom: 15px;            
-    border-radius: 8px;             
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-    max-width: 350px;              
+#menu {
+  width: 50px;
+  background-color: blue;
+  padding: 10px;
+  position: absolute;
+  left: 0px;
+  top: 10px;
 }
 
-.titulo_aula 
-{
-    font-weight: bold;              
-    font-size: 15px;               
-    padding: 5px;                  
-    white-space: nowrap;           
-    overflow: hidden;              
-    text-overflow: ellipsis;       
-    margin-bottom: 5px;             
+#perfil {
+  width: 50px;
+  background-color: green;
+  padding: 10px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
 }
 
-.lables 
-{
-    display: flex;                  
-    flex-wrap: wrap;              
+#user_name {
+  display: block;
+  font-size: 20pt;
+  padding: 5px;
 }
 
-.lable-prova,
-.lable-frequencia,
-.lable-nota 
-
-{
-    background-color: var(--prova); 
-    padding: 7px 15px;             
-    margin-bottom: 10px;          
-    border-radius: 500px;           
-    text-align: center;             
-    margin-right: 10px;          
+#mns_box {
+  position: relative;
+  background-color: green;
+  top: 0px;
+  left: 0px;
+  rigth: 0px;
+  padding: 10px;
 }
 
-.lable-frequencia 
-
-.lable-nota 
-{
-    background-color: var(--frequencia);
+#icon {
+  padding: 5px;
+  display: inline;
 }
 
-.p_lable 
-{
-    font-size: 13px;               
-    color: white;                 
-    white-space: nowrap;            
-    overflow: hidden;
-    text-overflow: ellipsis;
+#mns {
+  padding: 5px;
+  display: inline;
 }
