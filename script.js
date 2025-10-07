@@ -1,46 +1,41 @@
-// objeto do usuário
-const usuario = { nome: "Raphael", matricula: "123456", pendencia: false, acessibilidade: true };
+function openMenu() {
+  document.getElementById("menu_aba").style.display = "block"; 
+}
 
-// lista objetos de armários
-const armarios = [
-  { id: 1, formato: "padrao", status: true, acessivel: false },
-  { id: 2, formato: "padrao", status: true, acessivel: false },
-  { id: 3, formato: "padrao", status: true, acessivel: false },
-  { id: 4, formato: "padrao", status: false, acessivel: true },
-  { id: 5, formato: "padrao", status: false, acessivel: true },
-  { id: 6, formato: "duplo", status: true, acessivel: true },
-  { id: 7, formato: "duplo", status: false, acessivel: true },
-  { id: 8, formato: "duplo", status: false, acessivel: true },  
-];
+function closeMenu() {
+  document.getElementById("menu_aba").style.display = "none";    
+}
 
-// função para reserva do armário, incluindo as regras.
-function reservarArmario() {
-  
-  // obter tipo de armário selecionado pelo usuário no html.
-  let tipoSelecionado = document.getElementById("tipoArmario").value;
-  
-  // na lista, filtrar apenas os armários que estão disponíveis e que são acessiveis ao usuário.
-  let armariosDisponiveis = armarios.filter(a => a.formato === tipoSelecionado && a.status === true && usuario.acessibilidade === a.acessivel);
-  
-  // caso não exista armário disponível, retorna para o usuário mensagem.
-  if (armariosDisponiveis.length === 0) {
-    document.getElementById("resultado").innerText = `Olá, ${usuario.nome}! Nenhum armário disponível para o tipo selecionado.`;
-    return;
-  }
-  
-  // Caso exista armário(s) disponíveil, seguimos sorteando uma opção. 
-  let armarioSorteado = armariosDisponiveis[Math.floor(Math.random() * armariosDisponiveis.length)];
-  
-  // Depois localizamos o armário emprestado na lista de armarios e mudamos o status do armário.
-  let armarioEmprestado = armarios.find(armario => armario.id === armarioSorteado.id).status = false;
-  
-  // Finalmente, mudamos a pendencia do usuário para verdadeira.
-  usuario.pendencia = true;
-  
-  // Impmimimos uma mensagem de reserva para o usuário.
-  document.getElementById("resultado").innerText = `Olá, ${usuario.nome}! O armário ${armarioSorteado.id} foi reservado com sucesso!`;
+function temaLim() {
+    document.documentElement.style.setProperty('--cor-click', '#38184C');
+    document.documentElement.style.setProperty('--cor-sombra', '#9b0a59');
+    document.documentElement.style.setProperty('--cor-text', 'black');
+    document.documentElement.style.setProperty('--cor-back1', '#CEF09D');
+    document.documentElement.style.setProperty('--cor-back2', '#4f6a93');
+    document.documentElement.style.setProperty('--md-sys-color-primary', '#38184C');
+}
 
-  console.log(usuario);
-  console.log(armarios);
+function temaInatel() {
+    document.documentElement.style.setProperty('--cor-click', '#126ae2');
+    document.documentElement.style.setProperty('--cor-sombra', '#0a599b');
+    document.documentElement.style.setProperty('--cor-text', 'black');
+    document.documentElement.style.setProperty('--cor-back1', '#edf2f4');
+    document.documentElement.style.setProperty('--cor-back2', '#6a937a');
+    document.documentElement.style.setProperty('--md-sys-color-primary', '#126ae2');
+  
+}
 
+function temaDark() {
+    const cores = {
+        '--cor-click': '#CEF09D',
+        '--cor-sombra': '#9b0a59',
+        '--cor-text': 'black',
+        '--cor-back1': '#38184C',
+        '--cor-back2': '#4f6a93',
+        '--md-sys-color-primary': '#CEF09D'
+    };
+
+    for (const [variavel, valor] of Object.entries(cores)) {
+        document.documentElement.style.setProperty(variavel, valor);
+    }
 }
